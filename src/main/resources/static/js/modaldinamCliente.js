@@ -528,22 +528,27 @@ function actualizarPaginacion(totalPages) {
 
 
 // BUSCADOR DINÁMICO
+let debounceTimer;
+
 document.addEventListener('DOMContentLoaded', function() {
-	const inputBusqueda = document.getElementById('busqueda');
-	//const tbody = document.getElementById('tablaClientes');
+    const inputBusqueda = document.getElementById('busqueda');
 
-	inputBusqueda.addEventListener('keyup', async function() {
-		let letra = inputBusqueda.value.trim();
+    inputBusqueda.addEventListener('keyup', function() {
+        clearTimeout(debounceTimer); // Limpiar el temporizador anterior
 
-		if (letra === "") {
-			location.reload(); // Si el input está vacío, recargar la página
-			return;
-		}
+        debounceTimer = setTimeout(() => {
+            let letra = inputBusqueda.value.trim();
 
-		cargarUsuarios(0);
+            if (letra === "") {
+                location.reload(); // Si el input está vacío, recargar la página
+                return;
+            }
 
-	});
+            cargarUsuarios(0); // Llamar a la función después del tiempo de espera
+        }, 560); // Tiempo de espera en milisegundos
+    });
 });
+
 
 
 
@@ -691,9 +696,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				hoyMas2.setDate(FechaHoy.getDate() + 2);
 				const fechaVencimiento = fechaUTC(clien.cuenta.fecvenc);
 
-				//console.clear();
-				//console.log("Fecha de vencimiento = " + fechaVencimiento);
-				//console.log("Fecha de Hoy+2 = " + hoyMas2);
+				console.clear();
+				console.log("Fecha de vencimiento = " + fechaVencimiento);
+				console.log("Fecha de Hoy+2 = " + hoyMas2);
 
 				//Si el option actual del cliente no se encuentra en la lista original se agrega al select
 				if (clien.cuenta.perfenuso === clien.cuenta.servicio.perfiles) {
@@ -701,8 +706,13 @@ document.addEventListener("DOMContentLoaded", function() {
 					optionCuentaCliente.value = clien.usuario;
 					optionCuentaCliente.textContent = clien.cuenta.formattedText;
 					nomUsuarioSelect.appendChild(optionCuentaCliente);
+
 				} else if (hoyMas2.getTime() >= fechaVencimiento.getTime()) { //Aquí colocar si la fecha del cliente está a dos días por vencer colocar en el select
 
+					optionCuentaCliente.value = clien.usuario;
+					optionCuentaCliente.textContent = clien.cuenta.formattedText;
+					nomUsuarioSelect.appendChild(optionCuentaCliente);
+				} else if (clien.cuenta.servicio.plan.perfiles > 1 && fechaVencimiento.getTime() >= hoyMas2.getTime()) {
 					optionCuentaCliente.value = clien.usuario;
 					optionCuentaCliente.textContent = clien.cuenta.formattedText;
 					nomUsuarioSelect.appendChild(optionCuentaCliente);

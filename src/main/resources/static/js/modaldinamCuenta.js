@@ -211,8 +211,8 @@ function actualizarPaginacion(totalPages) {
 
 
 	// Agregar eventos después de renderizar botones
-	
-	if(seleccion){
+
+	if (seleccion) {
 		//seleccion = false;
 		setTimeout(() => {
 			document.getElementById("btnInicio").addEventListener("click", () => cargarCuentasVencidas(0));
@@ -228,8 +228,8 @@ function actualizarPaginacion(totalPages) {
 				cargarCuentasVencidas(data.totalPages - 1);
 			});
 		}, 50);
-		
-		
+
+
 	} else {
 		setTimeout(() => {
 			document.getElementById("btnInicio").addEventListener("click", () => cargarCuentas(0));
@@ -249,18 +249,25 @@ function actualizarPaginacion(totalPages) {
 }
 
 // BUSCADOR DINÁMICO
+let debounceTimer;
 document.addEventListener("DOMContentLoaded", function() {
 	const inputBusqueda = document.getElementById("busqueda");
 
 	inputBusqueda.addEventListener("keyup", async function() {
-		let letra = inputBusqueda.value.trim();
+		clearTimeout(debounceTimer);
 
-		if (letra === "") {
-			location.reload();
-			return;
-		}
+		debounceTimer = setTimeout(() => {
+			let letra = inputBusqueda.value.trim();
 
-		cargarCuentas(0);
+			if (letra === "") {
+				location.reload();
+				return;
+			}
+
+			cargarCuentas(0);
+
+		}, 560);
+
 	});
 });
 
@@ -770,25 +777,25 @@ document.addEventListener("DOMContentLoaded", function() {
 				}).then(async (result) => {
 					if (result.isConfirmed) {
 						try {
-							
+
 
 							//Se debe mostrar mensaje solo si uno de los clientes tiene estado=Activo
 							//Si Todos son inactivos no mostrar mensaje	
-								
+
 							//Si hay clientes con estado activo e inactivo, solo cambiar el usuario del inactivo y mostrar listado de los activos.
 							//Si solo hay clientes con estado activo, no se elimina y aparece mensaje con listado de los activos.
 
 							//if()
-							
-							
-							
+
+
+
 							const response = await fetch(`/cuentas/eliminar?` + new URLSearchParams({ usuario: nombreCuenta }), {
 								method: "DELETE"
 							});
 
-							
-							
-							
+
+
+
 							if (!response.ok) {
 								const responseClients = await fetch(`/clientes/clientesporUsuario?usuario=${encodeURIComponent(nombreCuenta)}`, {
 									method: "GET",
@@ -879,8 +886,8 @@ async function cargarCuentasVencidas(page = 0) {
 		const cuentas = data.content;
 		const totalPages = data.totalPages;
 		currentPage = page;
-		
-		
+
+
 		tbody.innerHTML = ""; // Limpiar tabla
 		cuentas.forEach(cuenta => {
 			// Crear la fila <tr>

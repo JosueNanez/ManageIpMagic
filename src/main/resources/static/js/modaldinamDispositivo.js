@@ -210,18 +210,24 @@ function actualizarPaginacion(totalPages) {
 }
 
 // BUSCADOR DINÁMICO
+let debounceTimer;
 document.addEventListener("DOMContentLoaded", function() {
 	const inputBusqueda = document.getElementById("busqueda");
 
 	inputBusqueda.addEventListener("keyup", async function() {
-		let letra = inputBusqueda.value.trim();
+		clearTimeout(debounceTimer);
 
-		if (letra === "") {
-			location.reload();
-			return;
-		}
+		debounceTimer = setTimeout(() => {
 
-		cargarCuentas(0);
+			let letra = inputBusqueda.value.trim();
+
+			if (letra === "") {
+				location.reload();
+				return;
+			}
+
+			cargarCuentas(0);
+		}, 560);
 	});
 });
 
@@ -475,7 +481,7 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 				return;
 			} else {
 				const cliente = await buscarUsuario.json();
-				
+
 				const response = await fetch(`/dispositivos/contar/${encodeURIComponent(nomCliente)}`);
 				if (!response.ok) {
 					throw new Error(`Error al obtener la cantidad de dispositivos: ${response.statusText}`);
