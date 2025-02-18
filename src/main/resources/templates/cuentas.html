@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard Bootstrap</title>
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- FontAwesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+	<!-- Estilo sidebar-->
+	<link rel="stylesheet" href="/css/estilosidebarnav.css">
+</head>
+
+<body>
+	<!-- Sidebar -->
+	<div id="sidebar" class="d-flex flex-column p-3">
+		<button id="toggleSidebar" class="btn btn-secondary mb-3">
+			<i class="fa-solid fa-bars"></i> <span class="sidebar-text">Menu</span>
+		</button>
+		<ul class="nav flex-column">
+			<li class="nav-item">
+				<a href="/principal/" class="nav-link text-white">
+					<i class="fa-solid fa-house"></i> <span class="sidebar-text">Inicio</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/planes/" class="nav-link text-white">
+					<i class="fa-solid fa-boxes-packing"></i> <span class="sidebar-text">Planes</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/paneles/" class="nav-link text-white">
+					<i class="fa-solid fa-server"></i> <span class="sidebar-text">Paneles</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/cuentas/" class="nav-link text-white">
+					<i class="fa-solid fa-receipt"></i> <span class="sidebar-text">Cuenta</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/clientes/" class="nav-link text-white">
+					<i class="fa-solid fa-users"></i> <span class="sidebar-text">Cliente</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/reproductores/" class="nav-link text-white">
+					<i class="fa-solid fa-sliders"></i> <span class="sidebar-text">Reproductor</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/dispositivos/" class="nav-link text-white">
+					<i class="fa-solid fa-tv"></i> <span class="sidebar-text">Dispositivo</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Contenedor Principal -->
+	<div id="mainContent" class="d-flex flex-column w-100">
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg px-3" style="background-color: #335587;" id="nav">
+			<div class="container-fluid">
+				<button id="toggleSidebarMobile" class="btn btn-outline-light d-md-none">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+
+				<a id="nomEmpresa" class="navbar-brand text-white" href="/principal/">MAGIC TL</a>
+
+				<button class="navbar-toggler text-white btn-outline-light" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<i class="fa-solid fa-filter py-2"></i>
+
+				</button>
+
+
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">Dropdown</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Action</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+						<li class="nav-item"><a class="nav-link disabled">Disabled</a></li>
+					</ul>
+					<form class="d-flex me-4" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
+				</div>
+
+				<!-- Contenedor del perfil -->
+				<div id="perfilContainer" class="position-relative me-1">
+					<a href="#" class="nav-link text-white d-flex align-items-center" id="perfil">
+						<i class="fa-solid fa-user"></i>
+						<span id="nomuser" class="sidebar-text ms-2">Josue Ñañez</span>
+						<i class="fa-solid fa-caret-down ms-2"></i>
+					</a>
+
+					<!-- Menú desplegable -->
+					<div id="perfilMenu"
+						class="dropdown-menu dropdown-menu dropdown-menu-end position-absolute mt-3 bg-light-subtle"
+						style="right: 0;">
+						<a class="dropdown-item ms-1 me-2" href="#"><i class="fa-solid fa-id-card me-2"></i>Ver
+							Perfil</a>
+						<a class="dropdown-item ms-1 me-2" href="#"><i class="fa-solid fa-gear me-2"></i>
+							Configuraciones</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item text-danger ms-1 me-2" href="#"><i
+								class="fa-solid fa-right-from-bracket me-2"></i> Cerrar Sesión</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!--<img src="https://dummyimage.com/40x40/000/fff" class="rounded-circle ms-2" alt="Perfil">-->
+
+		<!-- Contenido -->
+		<div class="container-fluid p-4">
+
+			<div class="d-flex mb-3 gap-5" id="encabezado">
+				<h1 class="h4 pt-2"><i class="fa-solid fa-receipt"></i> CUENTAS</h1>
+
+				<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-tipo="crear"
+					data-bs-target="#registroModal"><i class="fa-solid fa-plus"></i> Nueva Cuenta</button>
+			</div>
+
+			<div class="d-flex justify-content-end "  id="contenedorFiltro">
+				<button type="button" class="btn btn-outline-dark d-flex mb-2 me-2" id="filtroDesactivados">Cuentas
+					Vencidas</button>
+				<form class="d-flex mb-2 col-12 col-sm-12 col-md-12 col-lg-3">
+					<input type="text" id="busqueda" class="form-control" placeholder="🔎 Buscar usuario...">
+				</form>
+			</div>
+
+			<div class="table-responsive">
+				<div id="contenedorTabla">
+
+					<table class="table table-striped table-hover" style="min-width: max-content; table-layout: auto; ">
+						<thead class="text-center ">
+							<tr>
+								<th scope="col">Usuario</th>
+								<th scope="col">Clave</th>
+								<!--<th scope="col">Activación</th>-->
+								<th scope="col">Vencimiento</th>
+								<th scope="col">Conexión</th>
+								<th scope="col">Panel</th>
+								<th scope="col">Instalación</th>
+								<th scope="col">Adultos</th>
+								<th scope="col">Acciones</th>
+							</tr>
+						</thead>
+
+						<tbody class="text-center" id="tablaCuentas">
+							<tr th:each="cuen : ${cuentas.content}" th:classappend="${cuen.fecvenc < T(java.time.LocalDate).now()} ? 'fila-roja' :  
+																		(${cuen.perfenuso > cuen.servicio.perfiles} ? 'fila-roja' :
+																		(${cuen.fecvenc <= T(java.time.LocalDate).now().plusDays(2)} ? 'fila-naranja' : ''))">
+								<th th:text="${cuen.usuario}" scope="row">1</th>
+								<td th:text="${cuen.clave}">Otto</td>
+
+								<td th:text="${cuen.fecvenc}">Otto</td>
+								<td th:text="|${cuen.perfenuso} / ${cuen.servicio.perfiles}  |">Mark</td>
+								<td th:text="${cuen.nomservicio}">Otto</td>
+								<td th:text="${cuen.instalacion}">Otto</td>
+								<td th:text="${cuen.cadultos}">Otto</td>
+								<td>
+									<button class="btn btn-outline-warning btn-sm btn-edit" data-bs-toggle="modal"
+										data-tipo="actualizar" data-bs-target="#registroModal"
+										th:attr="data-nombre=${cuen.usuario}">
+										<i class="fa-solid fa-pen-to-square"></i>
+									</button>
+
+									<button class="btn btn-outline-danger btn-sm ms-3 botonEliminar"
+										th:attr="data-nombre=${cuen.usuario}"><i class="fa-solid fa-delete-left"></i>
+									</button>
+
+								</td>
+							</tr>
+							<style>
+								.fila-roja>th,
+								.fila-roja>td {
+									color: red;
+								}
+
+								.fila-naranja>th,
+								.fila-naranja>td {
+									color: #bb710d;
+								}
+							</style>
+
+						</tbody>
+
+
+						<!--	<tbody class="text-center" id="tablaCuentas">
+							<tr th:each="cuen : ${cuentas}"
+								th:classappend="${cuen.fecvenc < T(java.time.LocalDate).now()} ? 'fila-roja' :  
+												(${cuen.perfenuso > cuen.servicio.perfiles} ? 'fila-roja' :
+												(${cuen.fecvenc <= T(java.time.LocalDate).now().plusDays(2)} ? 'fila-naranja' : ''))">
+								<th th:text="${cuen.usuario}" scope="row">1</th>
+								<td th:text="${cuen.clave}">Otto</td>
+
+								<td th:text="${cuen.fecvenc}">Otto</td>
+								<td th:text="|${cuen.perfenuso} / ${cuen.servicio.perfiles}  |">Mark</td>
+								<td th:text="${cuen.nomservicio}">Otto</td>
+								<td th:text="${cuen.instalacion}">Otto</td>
+								<td th:text="${cuen.cadultos}">Otto</td>
+								<td>
+									<button class="btn btn-outline-warning btn-sm btn-edit" data-bs-toggle="modal"
+										data-tipo="actualizar" data-bs-target="#registroModal"
+										th:attr="data-nombre=${cuen.usuario}">
+										<i class="fa-solid fa-pen-to-square"></i>
+									</button>
+
+									<button class="btn btn-outline-danger btn-sm ms-3 botonEliminar"
+										th:attr="data-nombre=${cuen.usuario}"><i class="fa-solid fa-delete-left"></i>
+									</button>
+
+								</td>
+							</tr>
+							<style>
+								.fila-roja>th,
+								.fila-roja>td {
+									color: red;
+								}
+
+								.fila-naranja>th,
+								.fila-naranja>td {
+									color: #bb710d  ;
+								}
+							</style>
+						</tbody> -->
+					</table>
+
+				</div>
+			</div>
+			<nav aria-label="Page navigation" class="mt-2" id="contenedorPaginacion">
+			    <ul class="pagination justify-content-end" id="ulPaginacion">
+					
+			        <!-- Texto indicando la página actual-->
+					<div class="me-4 mt-2">
+						<span id="paginaActualTexto" th:text="|Página ${paginaActual + 1} de ${totalPaginas}|"></span>
+					</div>
+					
+			        <!-- Botón "Ir al inicio" -->
+			        <li class="page-item" th:classappend="${paginaActual == 0} ? 'disabled' : ''">
+			            <a class="page-link" th:href="@{/cuentas/(page=0, size=${cuentas.size})}" aria-label="Inicio">
+			                <span aria-hidden="true">1</span>
+			            </a>
+			        </li>
+
+			        <!-- Botón "Anterior" -->
+			        <li class="page-item" th:classappend="${paginaActual == 0} ? 'disabled' : ''">
+			            <a class="page-link" th:href="@{/cuentas/(page=${paginaActual - 1}, size=${cuentas.size})}" aria-label="Anterior">
+			                <span aria-hidden="true"><i class="fa-solid fa-backward"></i></span>
+			            </a>
+			        </li>
+
+			        <!-- Botón "Siguiente" -->
+			        <li class="page-item" th:classappend="${paginaActual + 1 >= totalPaginas} ? 'disabled' : ''">
+			            <a class="page-link" th:href="@{/cuentas/(page=${paginaActual + 1}, size=${cuentas.size})}" aria-label="Siguiente">
+			                <span aria-hidden="true" ><i class="fa-solid fa-forward"></i></span>
+			            </a>
+			        </li>
+
+			        <!-- Botón "Ir a la última página" -->
+			        <li class="page-item" th:classappend="${paginaActual + 1 >= totalPaginas} ? 'disabled' : ''">
+			            <a class="page-link" th:href="@{/cuentas/(page=${totalPaginas - 1}, size=${cuentas.size})}" aria-label="Última">
+			                <span aria-hidden="true" th:text="${totalPaginas}">Última »</span>
+			            </a>
+			        </li>
+			    </ul>
+			</nav>
+
+		</div>
+	</div>
+
+
+	<!-- Modal de Edición -->
+	<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
+		th:classappend="${not #lists.isEmpty(#fields.errors())} ? 'show d-block' : ''">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content p-2">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">NUEVA CUENTA</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="modalForm" th:object="${cuenta}">
+						<div class="row mb-1">
+
+							<!-- Usuario -->
+							<div class="mb-3 col-md-6">
+								<label for="inputNombre" class="form-label">Usuario</label>
+								<input type="hidden" id="inputNombreHidden" name="usuario">
+								<input type="text" class="form-control" id="inputNombre" th:field="*{usuario}"
+									oninput="validateTexto(this, 3, 'error-msgUsuario')" required>
+								<div id="error-msgUsuario" style="display: none;" class="text-danger validacion"></div>
+								<div id="errorNombre" class="text-danger"></div>
+							</div>
+
+							<!-- Clave -->
+							<div class="mb-3 col-md-6">
+								<label for="inputClave" class="form-label">Clave</label>
+								<input type="text" class="form-control" id="inputClave" th:field="*{clave}"
+									oninput="validateTexto(this, 4, 'error-msClave')" required>
+								<div id="error-msClave" style="display: none;" class="text-danger validacion"></div>
+								<div id="errorClave" class="text-danger"></div>
+							</div>
+						</div>
+
+						<div class="row mb-1">
+							<!-- Fecha de Activacion -->
+							<div class="mb-3 col-md-6">
+								<label for="inputActivacion" class="form-label">Activación</label>
+								<input type="date" class="form-control" id="inputActivacion" name="fecact"
+									th:field="*{fecactiv}">
+								<div class="text-danger" id="errorActivacion">
+								</div>
+							</div>
+
+							<!-- Fecha de Vencimiento -->
+							<div class="mb-3 col-md-6">
+								<label for="inputVencimiento" class="form-label">Vencimiento</label>
+								<input type="date" class="form-control" id="inputVencimiento" name="fecvenc"
+									th:field="*{fecvenc}">
+								<div id="error-msVencimiento" style="display: none;" class="text-danger validacion">
+								</div>
+								<div class="text-danger" id="errorVencimiento">
+								</div>
+							</div>
+						</div>
+
+						<div class="row mb-1">
+
+							<!-- Servicio -->
+							<div class="mb-3 col-md-6">
+								<label for="nomServicio" class="form-label">Servicio</label>
+								<select class="form-select" id="nomServicio" name="nomServicio"
+									th:field="*{nomservicio}">
+									<option value="" selected>Seleccione un servicio</option>
+									<option th:each="panel : ${servicios}" th:value="${panel.nomservicio}"
+										th:text="${panel.nomservicio}">Proveedor</option>
+								</select>
+								<div id="error-msPanel" style="display: none;" class="text-danger validacion"></div>
+								<div class="text-danger" id="errorServicio">
+								</div>
+							</div>
+
+							<!-- Instalacion -->
+							<div class="mb-3 col-md-6">
+								<label for="nomInstalacion" class="form-label">Instalación</label>
+								<select class="form-select" id="nomInstalacion" name="nomServicio"
+									th:field="*{instalacion}">
+									<option value="Remoto" selected>Remoto</option>
+									<option value="Manual">Manual</option>
+								</select>
+								<div class="text-danger" id="errorInstalacion">
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="row mb-1">
+							
+							<div class="mb-3 col-md-9">
+								<label for="inputDominio" class="form-label">LISTA M3U</label>
+								<input type="text" class="form-control" id="inputDominio" th:field="*{mtresu}"
+									 required>
+								<div id="error-msgDominio" style="display: none;" class="text-danger validacion"></div>
+								<div id="errorDominio" class="text-danger"></div>
+							</div>
+
+
+							<!-- Canales Adultos -->
+							<div class="mb-3 col-md-3">
+								<label class="form-label">Adultos</label>
+
+								<!-- Campo oculto para almacenar el valor 
+								<input type="hidden" id="inputAdultosHidden" th:field="*{cadultos}"> -->
+
+								<div class="mt-2">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" id="radioNo" name="cadultos"
+											value="No"
+											th:checked="${cadultos == 'No' or cadultos == null or cadultos == ''}">
+										<label class="form-check-label" for="radioNo">No</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" id="radioSi" name="cadultos"
+											value="Si" th:checked="${cadultos == 'Si'}">
+										<label class="form-check-label" for="radioSi">Sí</label>
+									</div>
+								</div>
+								<div id="errorAdultos" class="text-danger"></div>
+							</div>
+
+
+						</div>
+
+						<!-- Botón de Enviar -->
+						<button type="submit" id="botonModal" class="btn btn-primary mt-2">Crear Cuenta</button>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="/js/dinamicsidebarnav.js"></script>
+	<script src="/js/modaldinamCuenta.js"></script>
+	<script src="/js/validaciones.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

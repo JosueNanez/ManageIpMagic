@@ -1,0 +1,108 @@
+body {
+	display: flex;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#sidebar {
+	width: 250px;
+	background: #042637;
+	color: white;
+	transition: all 0.3s;
+	position: fixed;
+	height: 100vh;
+	overflow-y: auto;
+}
+
+.nav-item .nav-link {
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-item .nav-link:hover {
+	background: rgba(255, 255, 255, 0.2);
+	/* Color semitransparente */
+	transform: scale(1.05);
+	/* Pequeño zoom */
+}
+
+.dropdown-item {
+	color: black;
+	padding: 10px;
+	border-radius: 5px;
+	transition: background 0.3s ease, transform 0.2s ease;
+}
+.dropdown-item:hover {
+	background: rgba(255, 255, 255, 0.2);
+	/* Color semitransparente */
+	transform: scale(1.05);
+	/* Pequeño zoom */
+}
+
+nav.navbar {
+	color: white;
+}
+
+#mainContent {
+	flex-grow: 1;
+	margin-left: 250px;
+	transition: all 0.3s;
+}
+
+#sidebar.collapsed {
+	width: 80px;
+}
+
+#sidebar.collapsed .sidebar-text {
+	display: none;
+}
+
+#mainContent.collapsed {
+	margin-left: 80px;
+}
+
+#sidebar .nav-item .sidebar-text {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+#sidebar:not(.collapsed) .nav-item .sidebar-text {
+	opacity: 1;
+}
+
+@media (max-width: 768px) {
+	#sidebar {
+		left: -250px;
+		height: 100vh;
+		/* Asegura que el sidebar tenga altura completa */
+		z-index: 1050;
+		/* Hace que el sidebar esté por encima del navbar */
+	}
+
+	#sidebar.show {
+		left: 0;
+	}
+
+	#mainContent {
+		margin-left: 0;
+	}
+
+	nav.navbar {
+		z-index: 1040;
+		/* Navbar debajo del sidebar */
+		color: white;
+	}
+}
+
+
+/*Para que el thead de la tabla sea estático*/
+thead {
+	position: sticky;
+	top: 0;
+	background-color: white;
+	z-index: 10;
+}
+
+

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard Bootstrap</title>
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- FontAwesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+	<!-- Estilo sidebar-->
+	<link rel="stylesheet" href="/css/estilosidebarnav.css">
+
+</head>
+
+<body>
+	<!-- Sidebar -->
+	<div id="sidebar" class="d-flex flex-column p-3">
+		<button id="toggleSidebar" class="btn btn-secondary mb-3">
+			<i class="fa-solid fa-bars"></i> <span class="sidebar-text">Menu</span>
+		</button>
+		<ul class="nav flex-column">
+			<li class="nav-item">
+				<a href="/principal/" class="nav-link text-white">
+					<i class="fa-solid fa-house"></i> <span class="sidebar-text">Inicio</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/planes/" class="nav-link text-white">
+					<i class="fa-solid fa-boxes-packing"></i> <span class="sidebar-text">Planes</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/paneles/" class="nav-link text-white">
+					<i class="fa-solid fa-server"></i> <span class="sidebar-text">Paneles</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/cuentas/" class="nav-link text-white">
+					<i class="fa-solid fa-receipt"></i> <span class="sidebar-text">Cuenta</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/clientes/" class="nav-link text-white">
+					<i class="fa-solid fa-users"></i> <span class="sidebar-text">Cliente</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/reproductores/" class="nav-link text-white">
+					<i class="fa-solid fa-sliders"></i> <span class="sidebar-text">Reproductor</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/dispositivos/" class="nav-link text-white">
+					<i class="fa-solid fa-tv"></i> <span class="sidebar-text">Dispositivo</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Contenedor Principal -->
+	<div id="mainContent" class="d-flex flex-column w-100">
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg px-3" style="background-color: #335587;" id="nav">
+			<div class="container-fluid">
+				<button id="toggleSidebarMobile" class="btn btn-outline-light d-md-none">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+
+				<a id="nomEmpresa" class="navbar-brand text-white" href="/principal/">MAGIC TL</a>
+
+				<button class="navbar-toggler text-white btn-outline-light" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<i class="fa-solid fa-filter py-2"></i>
+
+				</button>
+
+
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">Dropdown</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Action</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+						<li class="nav-item"><a class="nav-link disabled">Disabled</a></li>
+					</ul>
+					<form class="d-flex me-4" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
+				</div>
+
+				<!-- Contenedor del perfil -->
+				<div id="perfilContainer" class="position-relative me-1">
+					<a href="#" class="nav-link text-white d-flex align-items-center" id="perfil">
+						<i class="fa-solid fa-user"></i>
+						<span id="nomuser" class="sidebar-text ms-2">Josue Ñañez</span>
+						<i class="fa-solid fa-caret-down ms-2"></i>
+					</a>
+
+					<!-- Menú desplegable -->
+					<div id="perfilMenu"
+						class="dropdown-menu dropdown-menu dropdown-menu-end position-absolute mt-3 bg-light-subtle"
+						style="right: 0;">
+						<a class="dropdown-item ms-1 me-2" href="#"><i class="fa-solid fa-id-card me-2"></i>Ver
+							Perfil</a>
+						<a class="dropdown-item ms-1 me-2" href="#"><i class="fa-solid fa-gear me-2"></i>
+							Configuraciones</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item text-danger ms-1 me-2" href="#"><i
+								class="fa-solid fa-right-from-bracket me-2"></i> Cerrar Sesión</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!--<img src="https://dummyimage.com/40x40/000/fff" class="rounded-circle ms-2" alt="Perfil">-->
+
+		<!-- Contenido -->
+		<div class="container-fluid p-4">
+
+			<div class="d-flex mb-5 gap-5" id="encabezado">
+				<h1 class="h4 pt-2"><i class="fa-solid fa-boxes-packing"></i> PLANES</h1>
+
+				<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-tipo="crear"
+					data-bs-target="#registroModal"><i class="fa-solid fa-plus"></i> Nuevo Plan</button>
+
+			</div>
+
+
+
+			<div class="table-responsive">
+				<div id="contenedorTabla">
+					<table class="table table-striped table-hover" style="min-width: max-content; table-layout: auto;">
+						<thead class="text-center ">
+							<tr>
+								<th scope="col">Tipo de Plan</th>
+								<th scope="col">Precio de Venta</th>
+								<th scope="col">Perfiles</th>
+								<th scope="col">Imagen</th>
+								<th scope="col">Soporte</th>
+								<th scope="col">Acciones</th>
+							</tr>
+						</thead>
+						<tbody class="text-center ">
+							<tr th:each="plan : ${planes}">
+								<th th:text="${plan.nomplan}" scope="row">1</th>
+								<td th:text="|S/  ${plan.precventa}|">Mark</td>
+								<td th:text="${plan.perfiles}">Otto</td>
+								<td th:text="${plan.imagen}">Otto</td>
+								<td th:text="${plan.soporte}">Otto</td>
+								<td>
+									<button class="btn btn-outline-warning btn-sm btn-edit" data-bs-toggle="modal"
+										data-tipo="actualizar" data-bs-target="#registroModal"
+										th:attr="data-nombre=${plan.nomplan}">
+										<i class="fa-solid fa-pen-to-square"></i>
+									</button>
+
+									<button class="btn btn-outline-danger btn-sm ms-3 botonEliminar"
+										th:attr="data-nombre=${plan.nomplan}"><i class="fa-solid fa-delete-left"></i>
+									</button>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+	<!-- Modal de Edición -->
+	<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
+		th:classappend="${not #lists.isEmpty(#fields.errors())} ? 'show d-block' : ''">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content p-2">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">NUEVO PLAN</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="modalForm" th:object="${plan}">
+						<div class="row mb-1">
+							<!-- Nombre del Plan -->
+							<div class="mb-3 col-md-6">
+								<label for="inputNombre" class="form-label">Nombre del Plan</label>
+								<input type="hidden" id="inputNombreHidden" name="nomplan">
+								<input type="text" class="form-control" id="inputNombre" th:field="*{nomplan}"
+									oninput="validateNombre(this, 2, 'error-msgNomb')" required>
+								<div id="error-msgNomb" style="display: none;" class="text-danger validacion"></div>
+								<div id="errorNombre" class="text-danger"></div>
+							</div>
+
+							<!-- Precio de Venta -->
+							<div class="mb-3 col-md-6">
+								<label for="inputPrecio" class="form-label">Precio de Venta</label>
+								<input type="number" class="form-control" id="inputPrecio" th:field="*{precventa}"
+									step="0.00" required>
+								<div id="errorPrecio" class="text-danger"></div>
+							</div>
+
+						</div>
+
+						<div class="row mb-1">
+							<!-- Cantidad de Perfiles -->
+							<div class="mb-3 col-md-6">
+								<label for="inputCantidad" class="form-label">Cantidad de Perfiles</label>
+								<input type="number" class="form-control" id="inputCantidad" th:field="*{perfiles}"
+									required>
+								<div id="errorPerfiles" class="text-danger"></div>
+							</div>
+
+							<!-- Imagen -->
+							<div class="mb-3 col-md-6">
+								<label for="inputImagen" class="form-label">Imagen (HD FHD 4K)</label>
+								<input type="text" class="form-control" id="inputImagen" th:field="*{imagen}"
+									oninput="validateTexto(this, 2, 'error-msClave')" required>
+								<div id="error-msImagen" style="display: none;" class="text-danger validacion"></div>
+								<div id="errorImagen" class="text-danger"></div>
+							</div>
+
+						</div>
+
+						<div class="row mb-1">
+
+							<!-- Soporte -->
+							<div class="mb-3 col-md-6">
+								<label for="tipoSoporte" class="form-label">Soporte</label>
+								<select class="form-select" id="tipoSoporte" name="soporte" th:field="*{soporte}">
+									<option value="No" selected>No</option>
+									<option value="Si">Si</option>
+								</select>
+								<div class="text-danger" id="errorSoporte">
+								</div>
+							</div>
+
+
+							<!-- Botón -->
+							<div class="mb-2 col-md-6 mt-4 pt-2">
+								<button type="submit" id="botonModal" class="btn btn-primary">Crear Plan</button>
+							</div>
+
+						</div>
+
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Modal de Edición 
+		<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true"
+		     th:classappend="${not #lists.isEmpty(#fields.errors())} ? 'show d-block' : ''">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="modalLabel">NUEVO PLAN</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body">
+		                <form id="modalForm" th:action="@{/planes/actualizar/}" th:object="${plan}" method="post">
+							
+							<input type="hidden" id="inputNombreHidden" name="nomplan">
+							<input type="text" class="form-control" id="inputNombre" th:field="*{nomplan}" readonly required>
+							
+	
+		                    <div class="mb-3">
+		                        <label for="inputNombre" class="form-label">Nombre del Plan</label>
+		                        <input type="text" class="form-control" id="inputNombre" th:field="*{nomplan}" required>
+		                        <div class="text-danger" th:if="${#fields.hasErrors('nomplan')}" th:errors="*{nomplan}"></div>
+		                    </div>
+
+	
+		                    <div class="mb-3">
+		                        <label for="inputPrecio" class="form-label">Precio de Venta</label>
+		                        <input type="number" class="form-control" id="inputPrecio" th:field="*{precventa}" step="0.01" required>
+		                        <div class="text-danger" th:if="${#fields.hasErrors('precventa')}" th:errors="*{precventa}"></div>
+		                    </div>
+
+		
+		                    <div class="mb-3">
+		                        <label for="inputCantidad" class="form-label">Cantidad de Perfiles</label>
+		                        <input type="number" class="form-control" id="inputCantidad" th:field="*{perfiles}" required>
+		                        <div class="text-danger" th:if="${#fields.hasErrors('perfiles')}" th:errors="*{perfiles}"></div>
+		                    </div>
+
+							
+		                    <button type="submit" id="botonModal" class="btn btn-primary">Crear</button>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div> -->
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="/js/dinamicsidebarnav.js"></script>
+	<script src="/js/modaldinamPlan.js"></script>
+	<script src="/js/validaciones.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
