@@ -109,6 +109,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
     Page<Object[]> buscarClientesPorNombre(@Param("letra") String letra, Pageable pageable);
 
     
-
+    @Transactional
+    @Modifying
+    @Query("UPDATE Cliente c SET c.fecactiv = :fecactiv, c.fecvenc = :fecvenc WHERE c.nomcliente = :nomcliente")
+    int actualizarFechas(String nomcliente, LocalDate fecactiv, LocalDate fecvenc);
     
 }

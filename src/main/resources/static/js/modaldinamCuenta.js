@@ -313,6 +313,21 @@ document.addEventListener("DOMContentLoaded", function() {
 		const fechaActual = fecha();
 		const fechaActualmas2 = fecha();
 		fechaActualmas2.setDate(fechaActual.getDate() + 2);
+		
+		//Fechas con automatización en cada cambio
+		document.getElementById("inputActivacion").addEventListener("change", function () {
+			
+		    let fechaActivacion = new Date(this.value); // Obtener la fecha de activación
+		    if (!isNaN(fechaActivacion)) { // Verificar que la fecha sea válida
+		        fechaActivacion.setMonth(fechaActivacion.getMonth() + 1); // Sumar un mes
+		        let fechaFormateada = fechaActivacion.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+		        document.getElementById("inputVencimiento").value = fechaFormateada; // Asignar al input
+				document.getElementById("inputVencimiento").dispatchEvent(new Event('input'));
+		    }
+			
+		});
+		
+		
 		if (tipodeAccion === "actualizar") {
 
 			const usuario = button.getAttribute("data-nombre");
@@ -406,6 +421,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("nomServicio").selectedIndex = 0;
 			document.getElementById("nomInstalacion").selectedIndex = 0;
 			document.getElementById("inputDominio").value = "";
+			document.getElementById("inputActivacion").dispatchEvent(new Event('change'));
 			//VALIDACIÓN DE FECHA DE VENCIMIENTO AL EDITAR
 			const inputVencimiento = document.getElementById("inputVencimiento");
 			const errorElementVenc = document.getElementById("error-msVencimiento");
@@ -424,6 +440,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			});
 		}
+		
 	});
 });
 
@@ -516,6 +533,7 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 				confirmButtonText: "Sí, actualizar !",
 				cancelButtonText: "Cancelar"
 			}).then(async (result) => {
+
 				if (result.isConfirmed) {
 					//Lista de clientes que usan la cuenta a actualizar
 					const responseClients = await fetch(`/clientes/clientesporUsuario?usuario=${encodeURIComponent(nomUsuario)}`, {
@@ -527,9 +545,40 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 						return;
 					}
 					const clientes = await responseClients.json();
+
+
 					//Si solo hay un cliente en la lista se actualiza también su valor cadultos
 					if (clientes.length === 1) {
 						var clienteUnico = clientes[0];
+
+						//Se necesita saber que si el cliente es único quiere decir que antes tuvo esta cuenta
+						//Saber si el plan de la cuenta es > 1 dispositivos entonces no es compartida
+						if (cuentaConsulta.servicio.plan.perfiles > 1) {
+							//establecer la misma fecha de activación y vencimiento al cliente
+							const payload = {
+								nomcliente: clienteUnico.nomcliente,  
+								usuario: nuevonomUsuario,
+								fecactiv: fecActive,
+								fecvenc: fecVenc
+							};
+
+							// Realizar la petición POST
+							fetch("/clientes/activarClientePorCuenta", {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json"
+								},
+								body: JSON.stringify(payload)
+							})
+								.then(response => response.json())
+								.then(data => {
+									console.log("Respuesta del servidor:", data);
+									//alert(data.mensaje); // Muestra mensaje de éxito o error  del controlador
+								})
+								.catch(error => console.error("Error al actualizar el cliente:", error));
+						}
+
+
 						try {
 							await fetch(`/clientes/actualizarCadultos?nomcliente=${encodeURIComponent(clienteUnico.nomcliente)}&cadultos=${encodeURIComponent(adultos)}`, {
 								method: "POST",
@@ -540,6 +589,8 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 							return;
 						}
 					}
+
+
 
 					//Realizar la actualización de cuenta
 					try {

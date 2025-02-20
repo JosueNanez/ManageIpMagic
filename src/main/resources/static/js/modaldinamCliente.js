@@ -573,6 +573,19 @@ document.addEventListener("DOMContentLoaded", function() {
 		var tipo = button.getAttribute("data-tipo");
 		tipodeAccion = tipo;
 		//await filtrarCuentas();
+		//Fechas con automatización en cada cambio
+		document.getElementById("inputActivacion").addEventListener("change", function () {
+			
+		    let fechaActivacion = new Date(this.value); // Obtener la fecha de activación
+		    if (!isNaN(fechaActivacion)) { // Verificar que la fecha sea válida
+		        fechaActivacion.setMonth(fechaActivacion.getMonth() + 1); // Sumar un mes
+		        let fechaFormateada = fechaActivacion.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+		        document.getElementById("inputVencimiento").value = fechaFormateada; // Asignar al input
+				document.getElementById("inputVencimiento").dispatchEvent(new Event('input'));
+		    }
+			
+		});
+		
 
 		if (tipodeAccion === "actualizar") {
 			const nomcliente = button.getAttribute("data-nombre");
@@ -793,7 +806,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("inputVencimiento").value = null;
 			document.getElementById("nomPlan").selectedIndex = 0;
 			document.getElementById("radioNo").checked = true;
-
+			document.getElementById("inputActivacion").dispatchEvent(new Event('change'));
+			
 			//await primerFiltroSelected();
 			//VALIDACIÓN DE FECHA DE VENCIMIENTO AL EDITAR
 			const inputVencimiento = document.getElementById("inputVencimiento");

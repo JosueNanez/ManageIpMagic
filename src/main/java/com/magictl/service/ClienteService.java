@@ -37,4 +37,8 @@ public interface ClienteService {
 	//public Page<String> buscarClientesPorNombre(String letra, Pageable pageable);
 	public Page<Map<String, String>> buscarClientesPorNombre(String letra, Pageable pageable);
 	
+	
+	public boolean actualizarFechasCliente(String nomcliente, LocalDate fecactiv, LocalDate fecvenc);
+	
+	
 }

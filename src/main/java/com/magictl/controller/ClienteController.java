@@ -1,5 +1,6 @@
 package com.magictl.controller;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -291,6 +292,42 @@ public class ClienteController {
 
 	    return ResponseEntity.ok(clientes);
 	}
+	
+	
+	//Proceso automatizado para actualizar fecactiv, fecvenc, y estado en cuentas Deluxe
+	
+	@PostMapping("/activarClientePorCuenta")
+	@ResponseBody
+    public ResponseEntity<?> actualizarFechas(@RequestBody Map<String, Object> payload) {
+        String nomcliente = (String) payload.get("nomcliente");
+        String usuario = (String) payload.get("usuario");
+        LocalDate fecactiv = LocalDate.parse((String) payload.get("fecactiv"));
+        LocalDate fecvenc = LocalDate.parse((String) payload.get("fecvenc"));
+        LocalDate hoy = LocalDate.now();
 
+        Cliente clienteActualizar = servicioCliente.obtenerClientePorNombre(nomcliente);
+        clienteActualizar.setNuevonomcliente(nomcliente);
+        clienteActualizar.setUsuario(usuario);
+        clienteActualizar.setFecactiv(fecactiv);
+        clienteActualizar.setFecvenc(fecvenc);
+       
+        if (fecactiv.isAfter(hoy) || fecactiv.isEqual(hoy)) {
+        	clienteActualizar.setEstado("Activo");
+        } else {
+        	clienteActualizar.setEstado("Inactivo");
+        }
+        
+		int actualizados = servicioCliente.actualizarCliente(clienteActualizar.getNomcliente(),
+				clienteActualizar.getNuevonomcliente(), clienteActualizar.getContacto(), clienteActualizar.getNomplan(), clienteActualizar.getUsuario(),
+				clienteActualizar.getFecactiv(), clienteActualizar.getFecvenc(), clienteActualizar.getEstado(), clienteActualizar.getCadultos());
+		if (actualizados > 0) {
+			return ResponseEntity.ok(Map.of("mensaje", "Cliente actualizado correctamente."));
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el cliente.");
+		}
+       
+    }
 
 }
+
+

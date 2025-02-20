@@ -143,6 +143,13 @@ public class ClienteServiceImpl implements ClienteService{
 	    });
 	}
 
+	
+	@Override
+	public boolean actualizarFechasCliente(String nomcliente, LocalDate fecactiv, LocalDate fecvenc) {
+		int filasActualizadas = repositorio.actualizarFechas(nomcliente, fecactiv, fecvenc);
+        return filasActualizadas > 0;
+	}
+
 
 
 }
