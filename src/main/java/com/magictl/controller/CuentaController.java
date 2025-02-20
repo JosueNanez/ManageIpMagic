@@ -74,6 +74,7 @@ public class CuentaController {
 		model.addAttribute("cuentas", paginaDeCuentas);
 	    model.addAttribute("totalPaginas", paginaDeCuentas.getTotalPages());
 	    model.addAttribute("paginaActual", paginaDeCuentas.getNumber());
+	    model.addAttribute("totalRegistros", paginaDeCuentas.getTotalElements());
 	    
 		model.addAttribute("servicios", servicioServicio.listaDeServicios());
 		model.addAttribute("cuenta", new Cuenta());

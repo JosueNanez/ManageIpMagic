@@ -59,6 +59,7 @@ public class DispositivoController {
 		model.addAttribute("dispositivos", listaDispositivos);
 		model.addAttribute("totalPaginas", listaDispositivos.getTotalPages());
 		model.addAttribute("paginaActual", listaDispositivos.getNumber());
+		model.addAttribute("totalRegistros", listaDispositivos.getTotalElements());
 
 		model.addAttribute("reproductores", servicioReproductor.listaDeReproductores());
 		model.addAttribute("dispositivo", new Dispositivo());

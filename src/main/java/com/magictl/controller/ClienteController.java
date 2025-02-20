@@ -61,6 +61,7 @@ public class ClienteController {
 		model.addAttribute("clientes", pagina);
 		model.addAttribute("totalPaginas", pagina.getTotalPages());
 		model.addAttribute("paginaActual", pagina.getNumber());
+		model.addAttribute("totalRegistros", pagina.getTotalElements());
 		model.addAttribute("planes", servicioPlan.listaDePlanes());
 		model.addAttribute("cliente", new Cliente());
 		return "clientes";

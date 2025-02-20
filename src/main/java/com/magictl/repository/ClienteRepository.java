@@ -105,6 +105,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
     	       "WHERE c.estado = 'Activo' " +
     	       "AND cu.perfenuso <> s.perfiles " +
     	       "AND c.nomcliente LIKE %:letra% " +
+    	       "AND NOT (p.perfiles = 1 AND (SELECT COUNT(d) FROM Dispositivo d WHERE d.nomcliente = c.nomcliente) = 1) " +
     	       "ORDER BY c.nomcliente ASC")
     Page<Object[]> buscarClientesPorNombre(@Param("letra") String letra, Pageable pageable);
 

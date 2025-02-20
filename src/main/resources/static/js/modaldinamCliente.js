@@ -302,6 +302,7 @@ async function cargarUsuarios(page = 0) {
 		const data = await response.json();
 		const clientes = data.content;
 		const totalPages = data.totalPages;
+		const totalRegistros = data.totalElements;
 		currentPage = page;
 
 		tbody.innerHTML = ""; // Limpiar tabla
@@ -432,22 +433,29 @@ async function cargarUsuarios(page = 0) {
 			tbody.appendChild(row);
 		});
 
-		actualizarPaginacion(totalPages);
+		actualizarPaginacion(totalPages, totalRegistros);
 	} catch (error) {
 		console.error("Error al buscar el cliente", error);
 	}
 }
 
-function actualizarPaginacion(totalPages) {
+function actualizarPaginacion(totalPages, totalRegistros) {
 	const paginacion = document.getElementById("ulPaginacion");
 	paginacion.innerHTML = "";
 
 	const container = document.createElement("div");
 	container.classList.add("me-4", "mt-2");
+	
+	const textoTotal = document.createElement("p");
+	textoTotal.className = "mt-2 me-2";
+	const spanTotal = document.createElement("span");
+	spanTotal.innerText = `Total: ${totalRegistros} -`;
+	textoTotal.appendChild(spanTotal);
+	paginacion.appendChild(textoTotal);
 
 	const paginaActualTexto = document.createElement("span");
 	paginaActualTexto.id = "paginaActualTexto";
-	paginaActualTexto.textContent = `Página ${currentPage + 1} de ${totalPages}`;
+	paginaActualTexto.textContent = `Pág. ${currentPage + 1} / ${totalPages}`;
 	container.appendChild(paginaActualTexto);
 	paginacion.appendChild(container);
 
@@ -1293,6 +1301,7 @@ async function cargarClientesVencidos(page = 0) {
 		const data = await response.json();
 		const clientes = data.content;
 		const totalPages = data.totalPages;
+		const totalRegistros = data.totalElements;
 		currentPage = page;
 
 		tbody.innerHTML = ""; // Limpiar tabla
@@ -1384,7 +1393,7 @@ async function cargarClientesVencidos(page = 0) {
 			// Agregar la fila al tbody
 			tbody.appendChild(row);
 		});
-		actualizarPaginacion(totalPages);
+		actualizarPaginacion(totalPages, totalRegistros);
 	} catch (error) {
 		console.error("Error al buscar el cliente", error);
 	}

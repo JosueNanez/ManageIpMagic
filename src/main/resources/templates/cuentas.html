@@ -141,6 +141,7 @@
 			</div>
 
 			<div class="d-flex justify-content-end "  id="contenedorFiltro">
+				
 				<button type="button" class="btn btn-outline-dark d-flex mb-2 me-2" id="filtroDesactivados">Cuentas
 					Vencidas</button>
 				<form class="d-flex mb-2 col-12 col-sm-12 col-md-12 col-lg-3">
@@ -249,11 +250,13 @@
 				</div>
 			</div>
 			<nav aria-label="Page navigation" class="mt-2" id="contenedorPaginacion">
+				
+				
 			    <ul class="pagination justify-content-end" id="ulPaginacion">
-					
+					<p class="mt-2 me-2">Total: <span th:text="${totalRegistros}"></span> -</p>
 			        <!-- Texto indicando la página actual-->
 					<div class="me-4 mt-2">
-						<span id="paginaActualTexto" th:text="|Página ${paginaActual + 1} de ${totalPaginas}|"></span>
+						<span id="paginaActualTexto" th:text="|Pág. ${paginaActual + 1} / ${totalPaginas}|"></span>
 					</div>
 					
 			        <!-- Botón "Ir al inicio" -->

@@ -122,7 +122,11 @@ public class CuentaServiceImpl implements CuentaService {
 	@Override
 	public Page<Cuenta> buscarporLetraPagin(String letra, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return repositorio.buscarPorLetraPag(letra, pageable);
+		Page<Cuenta> resultado = repositorio.buscarPorLetraPag(letra, pageable);
+		if (resultado.isEmpty()) {
+			resultado = repositorio.buscarPorClavePag(letra, pageable);
+		}
+		 return resultado;
 	}
 
 	@Override

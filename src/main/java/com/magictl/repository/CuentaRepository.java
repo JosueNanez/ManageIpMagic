@@ -39,6 +39,11 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
 
 	@Query("SELECT c FROM Cuenta c WHERE LOWER(c.usuario) LIKE LOWER(CONCAT('%', :letra, '%')) AND c.usuario <> 'Sin usuario'")
 	Page<Cuenta> buscarPorLetraPag(@Param("letra") String letra, Pageable pageable); // PAGINACION
+	@Query("SELECT c FROM Cuenta c WHERE LOWER(c.clave) LIKE LOWER(CONCAT('%', :letra, '%')) AND c.usuario <> 'Sin usuario'")
+	Page<Cuenta> buscarPorClavePag(@Param("letra") String letra, Pageable pageable); // PAGINACION
+	
+	
+	
 
 	@Query("SELECT c FROM Cuenta c WHERE c.fecvenc < :fechaHoy AND c.usuario <> 'Sin usuario' ORDER BY c.fecvenc ASC")
 	Page<Cuenta> listarCuentasVencidasPag(@Param("fechaHoy") LocalDate fechaHoy, Pageable pageable); // PAGINACION
