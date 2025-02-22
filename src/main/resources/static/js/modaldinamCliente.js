@@ -334,11 +334,12 @@ async function cargarUsuarios(page = 0) {
 			//tdFecActiv.classList.add("fila-roja");
 
 			const tdFecVenc = document.createElement("td");
+			tdFecVenc.className = "text-start";
 			const botonRenovar = document.createElement("button");
 			botonRenovar.className = "btn btn-outline-secondary  me-1";
 			botonRenovar.onclick = function() { recordatorioVenc(botonRenovar, clien.fecvenc, clien.cuenta.servicio.plan.precventa); };
 			const iconorev = document.createElement("i");
-			iconorev.className = "fa-solid fa-file-lines";
+			iconorev.className = "fa-solid fa-cart-shopping";
 			botonRenovar.appendChild(iconorev);
 			tdFecVenc.appendChild(botonRenovar);
 			const textodeta = document.createElement("span")
@@ -346,11 +347,12 @@ async function cargarUsuarios(page = 0) {
 			tdFecVenc.appendChild(textodeta);
 
 			const tdUsuario = document.createElement("td");
+			tdUsuario.className = "text-start";
 			const botonUser = document.createElement("button");
 			botonUser.className = "btn btn-outline-secondary  me-1";
 			botonUser.onclick = function() { listarConexion(botonUser, clien.usuario, clien.cuenta.clave, clien.cuenta.servicio.dominio); };
 			const icono = document.createElement("i");
-			icono.className = "fa-solid fa-file-lines";
+			icono.className = "fa-solid fa-receipt";
 			botonUser.appendChild(icono);
 			tdUsuario.appendChild(botonUser);
 			const textouser = document.createElement("span")

@@ -31,7 +31,7 @@ function validateTexto(input, minLength, errorMsgId) {
     const errorElement = document.getElementById(errorMsgId);
 
     // Expresión regular para permitir solo letras, números y espacios y simbolo suma
-	input.value = input.value.replace(/[^a-zA-Z0-9ñÑ+-,. ]/g, '');
+	input.value = input.value.replace(/[^a-zA-Z0-9ñÑ+-,.@# ]/g, '');
 	
 	// Elimina espacios iniciales
 	if (input.value.startsWith(" ")) {
