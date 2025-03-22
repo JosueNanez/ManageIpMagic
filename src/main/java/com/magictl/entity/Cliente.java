@@ -54,7 +54,7 @@ public class Cliente {
 	private String nomplan;
 	
 	@NotBlank(message = "El usuario no puede estar vacío.")
-	@Size(min = 2, max = 30, message = "El usuario debe ser entre 2 a 30 caracteres.")
+	@Size(min = 2, max = 50, message = "El usuario debe ser entre 2 a 30 caracteres.")
 	@Column(name = "usuario")
 	private String usuario;
 	

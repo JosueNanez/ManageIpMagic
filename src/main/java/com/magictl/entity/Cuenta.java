@@ -40,7 +40,7 @@ public class Cuenta {
     private String nuevonomusuario;
 	
 	@NotBlank(message = "El usuario no puede estar vacío.")
-	@Size(min = 3, max = 30, message = "El usuario debe tener mínimo 3 caracteres.")
+	@Size(min = 3, max = 50, message = "El usuario debe tener mínimo 3 caracteres.")
 	@Column(name = "usuario")
 	private String usuario;
 	

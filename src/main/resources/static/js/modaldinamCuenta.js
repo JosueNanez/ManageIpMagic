@@ -486,7 +486,7 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 		const cuentaConsulta = await response.json();
 
 		//Verifica si la cuenta no tiene conexiones perfenuso
-		if (cuentaConsulta.perfenuso == 0) {
+		if (cuentaConsulta.perfenuso <= 0) {
 			try {
 				const response = await fetch(`/cuentas/actualizar`, {
 					method: "POST",

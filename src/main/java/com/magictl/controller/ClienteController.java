@@ -117,6 +117,7 @@ public class ClienteController {
 	String estadoAnterior = "";
 	String usuarioAnterior = "";
 	int perfenusoCuentaAnterior = 0;
+	
 	@GetMapping("/buscar/{nomcliente}")
 	@ResponseBody
 	public ResponseEntity<Cliente> obtenerCliente(@PathVariable String nomcliente) {

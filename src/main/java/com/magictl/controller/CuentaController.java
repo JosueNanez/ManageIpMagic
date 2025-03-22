@@ -120,10 +120,26 @@ public class CuentaController {
 			return ResponseEntity.badRequest().body(errores);
 		} else {
 			try {
-				int actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
+				
+				//Agregado 23_03
+				int actualizados = 0;
+				if (cuenta.getPerfenuso() == 0) { //Genera la actualización con perfenuso enviado del form
+					actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
+							cuenta.getClave(), cuenta.getNomservicio(), cuenta.getFecactiv(), cuenta.getFecvenc(),
+							cuenta.getPerfenuso(), cuenta.getInstalacion(), cuenta.getCadultos(), cuenta.getMtresu());
+				} else {
+					actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
+							cuenta.getClave(), cuenta.getNomservicio(), cuenta.getFecactiv(), cuenta.getFecvenc(),
+							perfilesEnUso, cuenta.getInstalacion(), cuenta.getCadultos(), cuenta.getMtresu());
+				}//----------------
+
+				/*int actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
 						cuenta.getClave(), cuenta.getNomservicio(), cuenta.getFecactiv(), cuenta.getFecvenc(),
 						perfilesEnUso, cuenta.getInstalacion(), cuenta.getCadultos(), cuenta.getMtresu());
+				*/
+				
 				if (actualizados > 0) {
+					perfilesEnUso = 0; //Agregado 23_03
 					return ResponseEntity.ok(Map.of("mensaje", "Cuenta actualizada correctamente."));
 				} else {
 					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró la cuenta.");
