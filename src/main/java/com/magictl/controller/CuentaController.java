@@ -124,14 +124,17 @@ public class CuentaController {
 				//Agregado 23_03
 				int actualizados = 0;
 				if (cuenta.getPerfenuso() == 0) { //Genera la actualización con perfenuso enviado del form
+					//long cantidad = servicioDispositivo.contarDispositivos(cuenta.getNuevonomusuario());
+					
+					
 					actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
 							cuenta.getClave(), cuenta.getNomservicio(), cuenta.getFecactiv(), cuenta.getFecvenc(),
 							cuenta.getPerfenuso(), cuenta.getInstalacion(), cuenta.getCadultos(), cuenta.getMtresu());
 				} else {
 					actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
 							cuenta.getClave(), cuenta.getNomservicio(), cuenta.getFecactiv(), cuenta.getFecvenc(),
-							perfilesEnUso, cuenta.getInstalacion(), cuenta.getCadultos(), cuenta.getMtresu());
-				}//----------------
+							cuenta.getPerfenuso(), cuenta.getInstalacion(), cuenta.getCadultos(), cuenta.getMtresu());
+				}//---------------- perfesuno
 
 				/*int actualizados = servicioCuenta.actualizarCuenta(cuenta.getUsuario(), cuenta.getNuevonomusuario(),
 						cuenta.getClave(), cuenta.getNomservicio(), cuenta.getFecactiv(), cuenta.getFecvenc(),

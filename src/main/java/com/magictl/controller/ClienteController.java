@@ -329,6 +329,20 @@ public class ClienteController {
 		}
        
     }
+	
+	
+    @PostMapping("/cambiarEstado")
+    @ResponseBody
+    public ResponseEntity<String> desactivarCliente(@RequestParam String nomcliente, @RequestParam String estado) {
+        boolean desactivado = servicioCliente.desactivarCliente(nomcliente, estado);
+        if (desactivado) {
+            return ResponseEntity.ok("Cliente actualizado exitosamente.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se pudo actualizar el cliente.");
+        }
+    }
+	
+	
 
 }
 

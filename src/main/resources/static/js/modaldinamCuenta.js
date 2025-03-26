@@ -553,7 +553,8 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 						return;
 					}
 					const clientes = await responseClients.json();
-
+					
+					var cantidadDispositivos;
 
 					//Si solo hay un cliente en la lista se actualiza también su valor cadultos
 					if (clientes.length === 1) {
@@ -586,7 +587,7 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 								.catch(error => console.error("Error al actualizar el cliente:", error));
 						}
 
-
+						//ACTUALIZAR CADULTOS
 						try {
 							await fetch(`/clientes/actualizarCadultos?nomcliente=${encodeURIComponent(clienteUnico.nomcliente)}&cadultos=${encodeURIComponent(adultos)}`, {
 								method: "POST",
@@ -596,9 +597,40 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 							console.error("Error al actualizar cadultos:", error);
 							return;
 						}
+						
+						
+						// CONTAR LA CANTIDAD DE DIPOSITIVOS DEL UNICO CLIENTE Y ASIGNARLO A LA VARIABLE DEL PERFENUSO
+						try {
+						    const response = await fetch(`/dispositivos/contar/${encodeURIComponent(clienteUnico.nomcliente)}`);
+						    if (!response.ok) { throw new Error(`Error en la petición: ${response.status}`); }
+
+						    const cantidad = await response.json(); // La API devuelve un Long, que es un número
+						    cantidadDispositivos = parseInt(cantidad, 10); //Se envía el valor
+						} catch (error) {
+						    console.error("Error al contar dispositivos:", error);
+						}
+						
+						
+						//Cambiar el estado a ACTIVO del ÚNICO cLIENTE
+						try {
+							const estado = "Activo";
+						    const response = await fetch(`/clientes/cambiarEstado?nomcliente=${encodeURIComponent(clienteUnico.nomcliente)}&estado=${encodeURIComponent(estado)}`, {
+						        method: "POST",
+						        headers: {
+						            "Content-Type": "application/json"
+						        }
+						    });
+
+						    if (!response.ok) {
+						        throw new Error(`Error en la petición: ${response.status}`);
+						    }
+						} catch (error) {
+						    console.error("Error al desactivar cliente:", error);
+						    return "Error al desactivar cliente.";
+						}
 					}
 
-
+					
 
 					//Realizar la actualización de cuenta
 					try {
@@ -612,7 +644,7 @@ document.getElementById('botonModal').addEventListener('click', async function(e
 								nomservicio: nomServicio,
 								fecactiv: fecActive,
 								fecvenc: fecVenc,
-								perfenuso: 0,
+								perfenuso: cantidadDispositivos,
 								instalacion: nomInstalacion,
 								cadultos: adultos,
 								mtresu: mtresu
